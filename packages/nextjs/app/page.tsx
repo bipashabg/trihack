@@ -1,26 +1,29 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import Galaxy from '@/components/Galaxy';
+import Silk from '@/components/Silk';
 
 export default function Home() {
   const router = useRouter();
 
   const handleGetStarted = () => {
-    router.push('/borrower'); // Navigate to /borrower
+    router.push('/borrower'); 
+  };
+
+  const handleLend = () => {
+    router.push('/lender'); 
   };
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-black">
       <div className="absolute inset-0">
-        <Galaxy 
-            mouseRepulsion={true}
-            mouseInteraction={true}
-            density={1.5}
-            glowIntensity={0.5}
-            saturation={0.8}
-            hueShift={240}
-          />
+        <Silk
+          speed={5}
+          scale={1}
+          color="#7B7481"
+          noiseIntensity={1.5}
+          rotation={0}
+        />
         </div>
 
       {/* Content Overlay */}
@@ -37,10 +40,14 @@ export default function Home() {
               onClick={handleGetStarted}
               className="rounded-lg bg-white/20 px-8 py-4 text-lg font-medium text-white backdrop-blur-sm transition-all hover:bg-white/30 hover:scale-105"
             >
-              Get Started
+              Borrow
             </button>
-            <button className="rounded-lg border-2 border-white/40 px-8 py-4 text-lg font-medium text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:scale-105">
-              Learn More
+
+            <button
+              onClick={handleLend}
+              className="rounded-lg bg-white/20 px-8 py-4 text-lg font-medium text-white backdrop-blur-sm transition-all hover:bg-white/30 hover:scale-105"
+            >
+              Lend
             </button>
           </div>
         </div>
