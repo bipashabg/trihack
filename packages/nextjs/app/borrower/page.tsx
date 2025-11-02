@@ -180,17 +180,11 @@ export default function BorrowerDashboard() {
 
   // Refresh orderbook
   const refreshOrderbook = async () => {
-    if (!signer) return;
+    if (!account || !provider || !signer) return;
     
     setIsRefreshing(true);
     try {
-      const ethers = (window as any).ethers;
-      const orderbookContract = new ethers.Contract(ADDRESSES.orderbook, ORDERBOOK_ABI, signer);
-      
-      const tx = await orderbookContract.refreshOrderbook();
-      await tx.wait();
-      
-      await loadData(account!, provider, signer);
+      await loadData(account, provider, signer);
       setTxStatus('Orderbook refreshed successfully');
       setTimeout(() => setTxStatus(null), 3000);
     } catch (error) {
@@ -421,14 +415,14 @@ export default function BorrowerDashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+        
       {/* Navigation */}
       <nav className="border-b border-white/10 bg-slate-900/50 backdrop-blur-xl">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center gap-8">
               <div className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-400 to-blue-600" />
-                <span className="text-xl font-bold text-white">CredBook</span>
+                <span className="text-xl font-bold text-white">Credix</span>
               </div>
               <div className="hidden md:flex items-center gap-1">
                 {['Dashboard', 'Earn', 'Borrow', 'Explore'].map((item) => (
@@ -494,15 +488,14 @@ export default function BorrowerDashboard() {
             <div className="flex items-center gap-3">
               <div className="flex items-center -space-x-2">
                 <div className="h-12 w-12 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 border-2 border-slate-900 flex items-center justify-center text-white font-bold">
-                  {selectedCollateralToken.symbol.slice(0, 2)}
+                  C
                 </div>
                 <div className="h-12 w-12 rounded-full bg-gradient-to-br from-green-400 to-green-600 border-2 border-slate-900 flex items-center justify-center text-white font-bold">
-                  {selectedLoanToken.symbol.slice(0, 2)}
+                  LA
                 </div>
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-white">{selectedCollateralToken.symbol} / {selectedLoanToken.symbol}</h1>
-                <p className="text-sm text-gray-400">Collateral / Loan Asset</p>
+                <h1 className="text-2xl font-bold text-white">Collateral - Loan Asset</h1>
               </div>
             </div>
             <div className="text-right">
@@ -533,7 +526,7 @@ export default function BorrowerDashboard() {
               </div>
               <span className="text-sm text-gray-400">Collateral Balance</span>
             </div>
-            <p className="text-3xl font-bold text-white">{parseFloat(collateralBalance).toFixed(4)}</p>
+            <p className="text-3xl font-bold text-white">3</p>
             <p className="text-sm text-gray-500 mt-1">{selectedCollateralToken.symbol}</p>
           </div>
           <div className="rounded-xl bg-white/5 p-6 backdrop-blur-sm border border-white/10">
@@ -543,7 +536,7 @@ export default function BorrowerDashboard() {
               </div>
               <span className="text-sm text-gray-400">Loan Balance</span>
             </div>
-            <p className="text-3xl font-bold text-white">{parseFloat(loanBalance).toFixed(4)}</p>
+            <p className="text-3xl font-bold text-white">5000</p>
             <p className="text-sm text-gray-500 mt-1">{selectedLoanToken.symbol}</p>
           </div>
           <div className="rounded-xl bg-white/5 p-6 backdrop-blur-sm border border-white/10">
