@@ -289,7 +289,7 @@ const LendingDashboard = () => {
       // Step 2: Supply to pool
       alert('Approval successful! Now supplying to pool...');
       const supplyTx = await poolContract.supply(
-        selectedPool.id,
+        selectedPool.id +1,
         amountToSupply,
         0,
         walletAddress,
